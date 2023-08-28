@@ -1,59 +1,77 @@
 import './App.css';
+import React, { useState } from 'react';
 
 import rindo from './imagens/rindo.jpg';
 import alegre from './imagens/alegre.jpg';
 import bailarina from './imagens/bailarina.jpg';
 import coracao from './imagens/coracao.jpg';
 
-function App(){
-    return(
-      <div className="App">
-        <h1>Hello, world!</h1>
-        <img src={rindo} alt='Sorrindo' title='Sorrindo' height='200px' hidth='200px'/>
-        <p>Clique no emoji para exibir o nome dele!</p>
-        <img src={alegre} alt='Alegre' title='Alegre' height='50px' hidth='50px' hspace='10'/>
-        <img src={bailarina} alt='Bailarina' title='Bailarina' height='50px' hidth='50px' hspace='10'/>
-        <img src={coracao} alt='coração' title='Coração' height='50px' hidth='50px' hspace='10'/>
-      </div>
-    )
-  }
-  
-  export default App;
+  function App(){
+  const[exibirTitulo, setExibirTitulo]=useState(false);
 
-//Tentando tornar clicável (em andamento):
-  // function App(){
-//   const[exibirTitulo, setExibirTitulo]=useState(false);
+  const handleClick=() => {
+    setExibirTitulo(!exibirTitulo);
+  };
 
-//   const handleClick=() => {
-//     setExibirTitulo(!exibirTitulo);
-//   };
-//   return(
-//     <div className="App">
-//       <h1>Hello, world!</h1>
-//       <img src={rindo} alt='Sorrindo' height='200px' hidth='200px'
-//       onClick={handleClick}
-//       style={{ cursor: 'pointer' }}/>
-//       {exibirTitulo && <p>Sorrindo</p>}
+  return(
+    <div className="App">
+      <h1>Hello, world!</h1>
 
-//       <p>Clique no emoji para exibir o nome dele!</p>
+      <Botaoemoji
+      titulo='sorrindo'
+      imagem={rindo}
+      grande={true}
+      />
+
+      <p>Clique no emoji para exibir o nome dele!</p>
+
+      <Botaoemoji
+      titulo='alegre'
+      imagem={alegre}
+      />
+
+     <Botaoemoji
+      titulo='bailarina'
+      imagem={bailarina}
+      />
+
+     <Botaoemoji
+      titulo='coração'
+      imagem={coracao}
+      />
       
-//       <img src={alegre} alt='Alegre' height='50px' hidth='50px' hspace='10'
-//       onClick={handleClick}
-//       style={{ cursor: 'pointer' }}/>
-//       {exibirTitulo && <p>Alegre</p>}
+    </div>
+  )
+}
 
-//       <img src={bailarina} alt='Bailarina' height='50px' hidth='50px' hspace='10'
-//       onClick={handleClick}
-//       style={{ cursor: 'pointer' }}/>
-//       {exibirTitulo && <p>Bailarina</p>}
+function Botaoemoji (props) {
+  const[exibirTitulo, setExibirTitulo]=useState(false);
 
-//       <img src={coracao} alt='Coração' height='50px' hidth='50px' hspace='10'
-//       onClick={handleClick}
-//       style={{ cursor: 'pointer' }}/>
-//       {exibirTitulo && <p>Coração</p>}
-//     </div>
-//   )
-// }
+  const handleClick=() => {
+    setExibirTitulo(!exibirTitulo);}
 
-// export default App;
+  let width; 
+  let hspace;
+
+  if (props.grande) {
+    width= '200px';
+    hspace= '0'
+  }
+  else{
+    width='50px';
+    hspace='10'
+  }
+    
+  return(
+    <div style={{display:'inline-block'}}>
+    <img src={props.imagem} alt='Sorrindo' width={width} hspace={hspace} display='inline-block'  margin='10px'
+      onClick={handleClick}
+      style={{ cursor: 'pointer' }}/>
+    
+      {exibirTitulo && <p>{props.titulo}</p>}
+      </div>
+  )
+}
+
+export default App;
 
